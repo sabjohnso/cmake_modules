@@ -1,4 +1,5 @@
 include(FetchContent)
+include(Assert)
 
 FetchContent_Declare(googletest
   GIT_REPOSITORY https://github.com/google/googletest)
@@ -13,3 +14,4 @@ add_library(GTest::gtest ALIAS gtest)
 add_library(GTest::gtest_main ALIAS gtest_main)
 add_library(GTest::gmock ALIAS gmock)
 add_library(GTest::gmock_main ALIAS gmock_main)
+
