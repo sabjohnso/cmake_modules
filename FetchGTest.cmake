@@ -1,12 +1,13 @@
 include(FetchContent)
 
-option( FORCE_DOWNLOAD_GTEST "Download GTesT even if it is installed" OFF)
+option( FORCE_DOWNLOAD_GTEST "Download GTesT even if it is installed" ON)
 
 if(NOT FORCE_DOWNLOAD_GTEST)
   find_package(GTest)
 endif()
 
 if(NOT GTest_FOUND)
+
   FetchContent_Declare(googletest
     GIT_REPOSITORY https://github.com/google/googletest)
 
@@ -21,5 +22,11 @@ if(NOT GTest_FOUND)
   add_library(GTest::gmock ALIAS gmock)
   add_library(GTest::gmock_main ALIAS gmock_main)
 
+endif()
+
+if((NOT TARGET GTest::gtest) AND GTest_FOUND)
+  message(FATAL_ERROR "Installed GTest does not have target GTest::gtest")
+elseif(NOT TARGET GTest::gtest)
+  message(FATAL_ERROR "GTest dependency was not correctly resolved")
 endif()
 
